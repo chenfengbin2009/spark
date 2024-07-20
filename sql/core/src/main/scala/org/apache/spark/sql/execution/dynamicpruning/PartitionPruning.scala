@@ -242,7 +242,6 @@ object PartitionPruning extends Rule[LogicalPlan] with PredicateHelper with Join
           def fromLeftRight(x: Expression, y: Expression) =
             !x.references.isEmpty && x.references.subsetOf(left.outputSet) &&
               !y.references.isEmpty && y.references.subsetOf(right.outputSet)
-
           fromLeftRight(x, y) || fromLeftRight(y, x)
         }
 
