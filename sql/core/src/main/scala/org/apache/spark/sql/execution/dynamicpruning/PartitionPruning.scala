@@ -264,7 +264,7 @@ object PartitionPruning extends Rule[LogicalPlan] with PredicateHelper with Join
               if (currentLength > dynamicPartitionPruningMaxLength) {
                 newLeft
               } else {
-                newLeft = insertPredicate(l, newLeft, r, right, rightKeys, filterableScan.get)
+                newLeft = insertPredicate(l, newLeft, Seq(r), right, rightKeys, filterableScan.get)
               }
             } else {
               filterableScan = getFilterableTableScan(r, right)
@@ -274,7 +274,8 @@ object PartitionPruning extends Rule[LogicalPlan] with PredicateHelper with Join
                 if (currentLength > dynamicPartitionPruningMaxLength) {
                   newRight
                 } else {
-                  newRight = insertPredicate(r, newRight, l, left, leftKeys, filterableScan.get)
+                  newRight = insertPredicate(r, newRight, Seq(l), left, leftKeys,
+                    filterableScan.get)
                 }
               }
             }
